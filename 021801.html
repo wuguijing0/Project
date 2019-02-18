@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>JS 20-21-5</title>
+<style>
+	#erik{width:480px;height:480px;background:url(JS/erik.jpg);}
+</style>
+</head>
+<body>
+	<div id="erik"></div>
+	<script>
+		var erik=document.getElementById("erik");
+		var timer=null;
+		clearInterval(timer);
+		var i=16;
+		timer=setInterval(function(){
+			erik.style.backgroundPositionY=i*480-8160+"px";
+			i--;
+			if(i==0){
+				clearInterval(timer);
+			}
+		},100);
+	</script>
+</body>
+</html>
