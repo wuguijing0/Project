@@ -14,11 +14,21 @@
 		var timer=null;
 		clearInterval(timer);
 		var i=16;
+		var mark=0;
 		timer=setInterval(function(){
-			erik.style.backgroundPositionY=i*480-8160+"px";
-			i--;
-			if(i==0){
-				clearInterval(timer);
+			if(mark==0){
+				erik.style.backgroundPositionY=i*480-8160+"px";
+				i--;
+			}
+			if(mark==1){
+				erik.style.backgroundPositionY=i*480-8160+"px";
+				i++;
+			}
+			if(i==1){
+				mark=1;
+			}
+			if(i==16){
+				mark=0;
 			}
 		},100);
 	</script>
