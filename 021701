@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS 练习2</title>
+	<style>
+		table tr td{width: 70px;height: 20px;border: 1px solid #ddd;}
+	</style>
+</head>
+<body>
+	
+	<script>
+		// 编程一：3的小游戏
+		for(var i=1;i<=100;i++){
+			if(i%3==0){
+				console.log("PA");
+			}else{
+				console.log(i);
+			}
+		}
+		// 编程二：九九乘法表
+		// 方法一
+		// document.write("<table>");
+		// 	for(var i=1;i<=9;i++){
+		// 		document.write("<tr>");
+		// 			for(var j=1;j<=i;j++){
+		// 				document.write("<td>");
+		// 				document.write(j+"*"+i+"="+i*j);
+		// 				document.write("</td>");
+		// 			}
+		// 		document.write("</tr>");
+		// 	}
+		// document.write("</table>");
+		
+		//方法二
+		var table=document.createElement("table");
+		document.body.appendChild(table);
+		for(var i=1;i<=9;i++){
+			var tr=document.createElement("tr");
+			table.appendChild(tr);
+			for(var j=1;j<=i;j++){
+				var td=document.createElement("td");
+				tr.appendChild(td);
+				td.innerText=j+"*"+i+"="+i*j;
+			}
+		}
+
+		// 编程三：问候语
+		var time=new Date();
+		var p=document.createElement("p");
+		var hour=time.getHours();
+		if(hour>=6&&hour<12){
+			p.innerText="早上好";
+		}else if(hour>=12&&hour<18){
+			p.innerText="下午好";
+		}else{
+			p.innerText="晚上好";
+		}
+		document.body.insertBefore(p,table);
+
+	</script>
+</body>
+</html>
