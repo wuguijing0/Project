@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JS 练习3</title>
+	<style>
+	 	.palette {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .palette li {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #000;
+            cursor: pointer;
+        }
+	</style>
+</head>
+<body>
+	<!-- part 1 -->
+	<input id="name" type="text">    
+	<button id="submit-btn">Submit</button>
+	<br><br>
+	<!-- part 2 -->
+	 <label>
+        <input id="school" name="status" type="radio">
+        School
+    </label>
+    <label>
+        <input id="company" name="status" type="radio">
+        Company
+    </label>
+
+    <select id="school-select">        
+        <option>北京邮电大学</option>
+        <option>黑龙江大学</option>
+        <option>华中科技大学</option>
+    </select>
+
+    <select id="company-select">        
+        <option>百度</option>
+        <option>爱奇艺</option>        
+    </select>
+	<br><br>
+	<!-- part 3 -->
+	<ul class="palette" id="palette">
+        <li style="background-color:crimson"></li>
+        <li style="background-color:bisque"></li>
+        <li style="background-color:blueviolet"></li>
+        <li style="background-color:coral"></li>
+        <li style="background-color:chartreuse"></li>
+        <li style="background-color:darkolivegreen"></li>
+        <li style="background-color:cyan"></li>
+        <li style="background-color:#194738"></li>        
+    </ul>
+
+    <p class="color-picker" id="color-picker"></p>
+	<br><br>
+	<!-- part 4 -->
+	<div id="fade-obj" style="width:300px;height:300px;background:#000;"></div>
+	<button id="fade-btn">淡出</button>
+	<script>
+		// 编程1：提交事件
+		var submit=document.getElementById("submit-btn");
+		var txt=document.getElementById("name");
+		submit.onclick=submit;
+		txt.onkeydown=enter;
+		//判断回车与Esc
+		function enter(e){
+			if(e.code=="Enter"){
+				submit();
+			}
+			if(e.code=="Escape"){
+				txt.value="";
+			}
+		}
+		//定义提交
+		function submit(){
+			console.log(txt.value);
+		}
+
+		// 编程2：显示与隐藏
+		var school=document.getElementById("school");
+		var company=document.getElementById("company");
+		var sch=document.getElementById("school-select");
+		var com=document.getElementById("company-select");
+		school.onclick=function(){
+			sch.style.display="block";
+			com.style.display="none";
+		}
+		company.onclick=function(){
+			sch.style.display="none";
+			com.style.display="block";
+		}
+
+		//编程3：颜色改变
+		var lis=document.getElementById("palette").getElementsByTagName("li");
+		var picker=document.getElementById("color-picker");
+		for(var i=0;i<lis.length;i++){
+			lis[i].id=i;
+			lis[i].onclick=function(){
+				//picker.innerText=this.style.cssText;
+				//picker.innerText=this.getAttribute("style");
+				picker.innerText=this.style.backgroundColor;
+				picker.style.color=this.style.backgroundColor;
+			}
+		}
+
+		//编程4
+		var obj=document.getElementById("fade-obj");
+		var btn=document.getElementById("fade-btn");
+		function fadeout(){
+			btn.disabled="disabled";
+			obj.style.opacity="0";
+			obj.style.transition="2s";
+		}
+		function fade(){
+			btn.disabled="";
+			if(btn.innerText=="淡出"){
+				btn.innerText="淡入";
+			}else{
+				btn.innerText="淡出";
+			}
+		}
+		function fadein(){
+			btn.disabled="disabled";
+			obj.style.opacity="1";
+			obj.style.transition="2s";
+		}
+		var timer=null;
+		btn.onclick=function(){
+			if(obj.style.opacity=="0"){
+				fadein();
+				clearTimeout(timer);
+				timer=setTimeout(fade,2000);
+			}else{
+				fadeout();
+				clearTimeout(timer);
+				timer=setTimeout(fade,2000);
+			}
+		}
+	</script>
+</body>
+</html>
