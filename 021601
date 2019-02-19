@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>JS 练习1</title>
+</head>
+<body>        
+    <!-- part1 -->
+    <input id="first-number" type="number" value="0" placeholder="第一个数字">
+    <input id="second-number" type="number" value="0" placeholder="第二个数字">
+    <button id="add-btn">加</button>
+    <button id="minus-btn">减</button>
+    <button id="times-btn">乘</button>
+    <button id="divide-btn">除</button>
+    <p id="result">运算结果</p>
+    <!-- part2 -->
+    <input id="dec-number" type="number" placeholder="输入一个十进制非负整数">
+    <input id="bin-bit" type="number" placeholder="输入转化后二进制数字位数">
+    <button id="trans-btn">转化为二进制</button>
+    <p id="result1">运算结果</p>
+    <script>
+        //part1
+        var calculate=document.getElementsByTagName("button");
+        var result=document.getElementById("result");
+        var num1=document.getElementById("first-number");
+        var num2=document.getElementById("second-number");
+        for(var i=0;i<calculate.length;i++){
+            calculate[i].onclick=function(){
+                if(this.id=="add-btn"){
+                    check();
+                    result.innerText=parseFloat(num1.value)+parseFloat(num2.value);
+                }else if(this.id=="minus-btn"){
+                    check();
+                    result.innerText=parseFloat(num1.value)-parseFloat(num2.value);
+                }else if(this.id=="times-btn"){
+                    check();
+                    result.innerText=parseFloat(num1.value)*parseFloat(num2.value);
+                }else if(this.id=="divide-btn"){
+                    check();
+                    if(num2.value==0){
+                        console.log("分母为0");
+                    }else{
+                        result.innerText=parseFloat(num1.value)/parseFloat(num2.value);
+                    }
+                }
+            }
+        }
+        function check(){
+            // if(!isNaN(num1.value)||!isNaN(num2.value)){
+            //     console.log("输入值为非数字类型");
+            // }
+            //var reg=/^[1-9]\d*$|^0$/;  //正整数
+            var reg=/^-?\d+(?:\.\d+)?$/;   //正负整数加正负浮点数
+            if(reg.test(num1.value)==false||reg.test(num2.value)==false){
+                console.log("非数字");
+            }
+        }
+
+        // part2
+        var dec=document.getElementById("dec-number");
+        var bit=document.getElementById("bin-bit");
+        var result1=document.getElementById("result1");
+        var trans_btn=document.getElementById("trans-btn");
+        var reg=/^[1-9]\d*$|^0$/;
+        var num="00000000";
+        trans_btn.onclick=function(){
+            if(reg.test(dec.value)==false){
+            alert("请输入正整数");
+        }else{
+                var bbit=parseInt(bit.value);
+                var res=parseInt(dec.value).toString(2);
+                if(res.length<bbit){
+                    res=res+num.slice(0,bbit-res.length);
+                }
+                if(res.length>bbit){
+                    console.log("转换位数大于设置位数");
+                }
+                result1.innerText=res;
+            }
+        }
+    </script>
+</body>
+</html>
