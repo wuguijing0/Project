@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 	<meta charset="UTF-8">
 	<title>JS 22-24</title>
@@ -60,87 +60,161 @@
 				}
 			}
 		}
-
-		btn[0].onclick=btn1;
-		btn[1].onclick=btn2;
-		btn[2].onclick=btn3;
-		btn[3].onclick=btn4;
-		btn[4].onclick=btn5;
-		btn[5].onclick=btn6;
-		btn[6].onclick=btn7;
-		btn[7].onclick=btn8;
 		
-		function btn1(){
-			check();
-			if(isnan(1)==1){
-				result.innerText="数字";
-			}else{
-				result.innerText="非数字";
+		for(var i=0;i<btn.length;i++){
+			btn[i].id=i;
+		}
+		
+		var btns=document.querySelector("#btn");
+		btns.onclick=function(event){
+			switch(event.target.id){
+				case "0":
+					check();
+					if(isnan(1)==1 && num!=""){
+						result.innerText="数字";
+					}else{
+						result.innerText="非数字";
+					}
+					break;
+				case "1":
+					if(isnan(2)==0){
+					console.log("输入值含有非数字类型");
+					}else{
+						var t=1;
+						for(;nb.value>0;t*=10 ,nb.value--);
+						for(;nb.value<0;t/=10,nb.value++);
+						result.innerText=Math.round(na.value*t)/t;
+					}
+					break;
+				case "2":
+					check();
+					if(isnan(1)==0){
+						console.log("输入值含有非数字类型");
+					}else{
+						result.innerText=Math.abs(num);
+					}
+					break;
+				case "3":
+					check();
+					if(isnan(1)==0){
+						console.log("输入值含有非数字类型");
+					}else{
+						result.innerText=Math.ceil(num);
+					}
+					break;
+				case "4":
+					check();
+					if(isnan(1)==0){
+						console.log("输入值含有非数字类型");
+					}else{
+						result.innerText=Math.floor(num);
+					}
+					break;
+				case "5":
+					check();
+					if(isnan(1)==0){
+						console.log("输入值含有非数字类型");
+					}else{
+						result.innerText=Math.round(num);
+					}
+					break;
+				case "6":
+					if(isnan(2)==0){
+						console.log("输入值含有非数字类型");
+					}else{
+						result.innerText=Math.max(na.value,nb.value);
+					}
+					break;
+				case "7":
+					if(isnan(2)==0){
+						console.log("输入值含有非数字类型");
+					}else{
+						result.innerText=Math.min(na.value,nb.value);
+					}
+					break;
 			}
 		}
 
-		function btn2(){
-			if(isnan(2)==0){
-				console.log("输入值含有非数字类型");
-			}else{
-				var t=1;
-				for(;nb.value>0;t*=10 ,nb.value--);
-				for(;nb.value<0;t/=10,nb.value++);
-				result.innerText=Math.round(na.value*t)/t;
-			}
-		}
-
-		function btn3(){
-			check();
-			if(isnan(1)==0){
-				console.log("输入值含有非数字类型");
-			}else{
-				result.innerText=Math.abs(num);
-			}
-		}
-
-		function btn4(){
-			check();
-			if(isnan(1)==0){
-				console.log("输入值含有非数字类型");
-			}else{
-				result.innerText=Math.ceil(num);
-			}
-		}
-
-		function btn5(){
-			check();
-			if(isnan(1)==0){
-				console.log("输入值含有非数字类型");
-			}else{
-				result.innerText=Math.floor(num);
-			}
-		}
-
-		function btn6(){
-			check();
-			if(isnan(1)==0){
-				console.log("输入值含有非数字类型");
-			}else{
-				result.innerText=Math.round(num);
-			}
-		}
-
-		function btn7(){
-			if(isnan(2)==0){
-				console.log("输入值含有非数字类型");
-			}else{
-				result.innerText=Math.max(na.value,nb.value);
-			}
-		}
-
-		function btn8(){
-			if(isnan(2)==0){
-				console.log("输入值含有非数字类型");
-			}else{
-				result.innerText=Math.min(na.value,nb.value);
-			}
-		}
+		//btn[0].onclick=btn1;
+//		btn[1].onclick=btn2;
+//		btn[2].onclick=btn3;
+//		btn[3].onclick=btn4;
+//		btn[4].onclick=btn5;
+//		btn[5].onclick=btn6;
+//		btn[6].onclick=btn7;
+//		btn[7].onclick=btn8;
+//		
+//		function btn1(){
+//			check();
+//			if(isnan(1)==1 && num!=""){
+//				result.innerText="数字";
+//			}else{
+//				result.innerText="非数字";
+//			}
+//		}
+//
+//		function btn2(){
+//			if(isnan(2)==0){
+//				console.log("输入值含有非数字类型");
+//			}else{
+//				var t=1;
+//				for(;nb.value>0;t*=10 ,nb.value--);
+//				for(;nb.value<0;t/=10,nb.value++);
+//				result.innerText=Math.round(na.value*t)/t;
+//			}
+//		}
+//
+//		function btn3(){
+//			check();
+//			if(isnan(1)==0){
+//				console.log("输入值含有非数字类型");
+//			}else{
+//				result.innerText=Math.abs(num);
+//			}
+//		}
+//
+//		function btn4(){
+//			check();
+//			if(isnan(1)==0){
+//				console.log("输入值含有非数字类型");
+//			}else{
+//				result.innerText=Math.ceil(num);
+//			}
+//		}
+//
+//		function btn5(){
+//			check();
+//			if(isnan(1)==0){
+//				console.log("输入值含有非数字类型");
+//			}else{
+//				result.innerText=Math.floor(num);
+//			}
+//		}
+//
+//		function btn6(){
+//			check();
+//			if(isnan(1)==0){
+//				console.log("输入值含有非数字类型");
+//			}else{
+//				result.innerText=Math.round(num);
+//			}
+//		}
+//
+//		function btn7(){
+//			if(isnan(2)==0){
+//				console.log("输入值含有非数字类型");
+//			}else{
+//				result.innerText=Math.max(na.value,nb.value);
+//			}
+//		}
+//
+//		function btn8(){
+//			if(isnan(2)==0){
+//				console.log("输入值含有非数字类型");
+//			}else{
+//				result.innerText=Math.min(na.value,nb.value);
+//			}
+//		}
 	</script>
 </body>
 </html>
