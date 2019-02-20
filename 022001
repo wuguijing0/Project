@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta charset="utf-8" />
 <title>JS 22-24-2</title>
 </head>
 	
@@ -85,18 +85,21 @@
 					result.innerText=check().value.toUpperCase();
 				break;
 				case "9":
-					result.innerText=check().value.toLower Case();
+					result.innerText=check().value.toLowerCase();
 				break;
 				case "10":
-					result.innerText=check().value.split(/\r/);
+					result.innerText=check().value.replace(/\s/g,'');
 				break;
 				case "11":
-				
+					if(check()==sa){
+						sa.value=sa.value.replace(/a/gi,sb.value);
+					}
+					if(check()==sb){
+						sb.value=sb.value.replace(/a/gi,sa.value);
+					}
 				break;
 			}
 		}
-		
-		
 	</script>
 </body>
 </html>
