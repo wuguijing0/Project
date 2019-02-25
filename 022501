@@ -21,6 +21,22 @@
 	<button id="font-btn1">打印队头元素内容</button>
 	<button id="empty-btn1">判断队列是否为空</button>
 	
+	<br /><br />
+	<input id="stack-input" type="text">
+	<p id="stack-cont">栈内容：apple-&gt;pear</p>    
+	<button id="push-btn">进栈</button>
+	<button id="pop-btn">退栈</button>
+	<button id="font-btn2">打印栈顶元素内容</button>
+	<button id="empty-btn2">判断栈是否为空</button>
+	
+	<br /><br />
+	<input id="stack-input1" type="text">
+	<p id="stack-cont1">栈内容：apple&lt;-pear</p>    
+	<button id="push-btn1">进栈</button>
+	<button id="pop-btn1">退栈</button>
+	<button id="font-btn3">打印栈顶元素内容</button>
+	<button id="empty-btn3">判断栈是否为空</button>
+	
 	<script>
 	var queue = ["apple", "pear"];
 	var input=document.querySelector("#queue-input");
@@ -71,6 +87,58 @@
 			alert("队列不为空");
 		}else{
 			alert("队列为空");
+		}
+	}
+	
+	var stack = ["apple", "pear"];
+	var input2=document.querySelector("#stack-input");
+	var cont2=document.querySelector("#stack-cont");
+	var in_btn2=document.querySelector("#push-btn");
+	var out_btn2=document.querySelector("#pop-btn");
+	var font_btn2=document.querySelector("#font-btn2");
+	var empty_btn2=document.querySelector("#empty-btn2");
+	in_btn2.onclick=function(){
+		stack.push(input2.value);
+		cont2.innerText="栈内容："+ stack.join("->");
+	}
+	out_btn2.onclick=function(){
+		stack.pop();
+		cont2.innerText="栈内容："+ stack.join("->");
+	}
+	font_btn2.onclick=function(){
+		input2.value=stack[stack.length-1];
+	}
+	empty_btn2.onclick=function(){
+		if(stack.length!=0){
+			alert("栈不为空");
+		}else{
+			alert("栈为空");
+		}
+	}
+	
+	var stack1 = ["apple", "pear"];
+	var input3=document.querySelector("#stack-input1");
+	var cont3=document.querySelector("#stack-cont1");
+	var in_btn3=document.querySelector("#push-btn1");
+	var out_btn3=document.querySelector("#pop-btn1");
+	var font_btn3=document.querySelector("#font-btn3");
+	var empty_btn3=document.querySelector("#empty-btn3");
+	in_btn3.onclick=function(){
+		stack1.unshift(input3.value);
+		cont3.innerText="栈内容："+ stack1.join("<-");
+	}
+	out_btn3.onclick=function(){
+		stack1.shift();
+		cont3.innerText="栈内容："+ stack1.join("<-");
+	}
+	font_btn3.onclick=function(){
+		input3.value=stack1[0];
+	}
+	empty_btn3.onclick=function(){
+		if(stack1.length!=0){
+			alert("栈不为空");
+		}else{
+			alert("栈为空");
 		}
 	}
 	</script>
