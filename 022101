@@ -60,43 +60,62 @@
 		}
 	}
 	
-	function traversal(tree,obj,val){
-		if(tree){
-			if(tree.obj==val){
-				
+	var res;
+	
+	function traversal(data,obj,val){
+		if(data){
+			if(data[obj]==val){
+				res=data;
+				return;
 			}else{
-				traversal(tree.left,obj,val);
-				traversal(tree.right,obj,val);
+				traversal(data.left,obj,val);
+				traversal(data.right,obj,val);
 			}
 		}
 	}
-	//document.write(tree.left.name);
 	
-	// 假设id和name均不会重复，根据输入name找到对应的id
+	//if(tree.left.left.right.left["name"]=="Saber"){
+//		document.write(tree.left.left.right.left["id"]);
+//	}
+	//document.write(tree.left.left.right.left["name"]);
+	
+	// 假设id和name均不会重复，根据输入name找到对应的idtraversal(tree,name,"root")
 	function findIdByName(name) {
-		if(tree.name==name){
-			console.log(tree.id);
-		}
+		traversal(tree,"name",name);
+		console.log(res.id);
 	}
 	
 	// 假设id和name均不会重复，根据输入id找到对应的name
 	function findNameById(id) {
-	
+		traversal(tree,"id",id);
+		console.log(res.name);
 	}
 	
 	// 把这个对象中所有的名字以“前序遍历”的方式全部输出到console中
-	function getListWithDLR() {
-	
+	function getListWithDLR(data) {
+		if(data){
+			console.log(data.name);
+			getListWithDLR(data.left);
+			getListWithDLR(data.right);
+		}
 	}
 	
 	// 把这个对象中所有的名字以“中序遍历”的方式全部输出到console中
-	function getListWithLDR() {
-	
+	function getListWithLDR(data) {
+		if(data){
+			getListWithLDR(data.left);
+			console.log(data.name);
+			getListWithLDR(data.right);
+		}
 	}
 	
 	// 把这个对象中所有的名字以“后序遍历”的方式全部输出到console中
-	function getListWithLRD() {
-	
+	function getListWithLRD(data) {
+		if(data){
+			getListWithLRD(data.left);
+			getListWithLRD(data.right);
+			console.log(data.name);
+		}
 	}
 	</script>
 </body>
