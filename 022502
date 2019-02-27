@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>JS 22-24-5</title>
+</head>
+	
+<body>
+	
+	<script>
+		//1.数组排序(冒泡排序法)
+		var arr = [43, 54, 4, -4, 84, 100, 58, 27, 140];
+		var temp;
+		//for(var i=0;i<arr.length-1;i++){
+//			if(arr[i]>arr[i+1]){
+//				temp=arr[i];
+//				arr[i]=arr[i+1];
+//				arr[i+1]=temp;
+//			}
+//			for(var j=arr.length-1;j>0;j--){
+//				if(arr[j]<arr[j-1]){
+//					temp=arr[j];
+//					arr[j]=arr[j-1];
+//					arr[j-1]=temp;
+//				}
+//			}
+//		}
+		for(var i=arr.length;i>0;i--){
+			for(j=0;j<i-1;j++){
+				if(arr[j]>arr[j+1]){
+					temp=arr[j];
+					arr[j]=arr[j+1];
+					arr[j+1]=temp;
+				}
+			}
+		}
+		document.write(arr+"<br/>");
+		//2.字符串数组排序,分别按字母顺序a-z及z-a进行排序
+		var arr1 = ['apple', 'dog', 'cat', 'car', 'zoo', 'orange', 'airplane'];
+		document.write(arr1.sort()+"<br/>");
+		document.write(arr1.sort().reverse()+"<br/>");
+		//3.二维数组排序，按照每个元素中第二个数从大到小的顺序进行排序输出
+		var arr2 = [[10, 14], [16, 60], [7, 44], [26, 35], [22, 63]];
+		var temp1;
+		for(var i=arr2.length;i>0;i--){
+			for(j=0;j<i-1;j++){
+				if(arr2[j][1]<arr2[j+1][1]){
+					temp1=arr2[j];
+					arr2[j]=arr2[j+1];
+					arr2[j+1]=temp1;
+				}
+			}
+		}
+		document.write("["+arr2.join("],[")+"]"+"<br/>");
+		//4.按元素对象的value值从小到大进行排序
+		var arr3 = [
+			{
+				id: 1,
+				name: 'candy',
+				value: 40
+			}, {
+				id: 2,
+				name: 'Simon',
+				value: 50
+			}, {
+				id: 3,
+				name: 'Tony',
+				value: 45
+			}, {
+				id: 4,
+				name: 'Annie',
+				value: 60
+			}
+		];
+		var temp2;
+		for(var i=arr3.length;i>0;i--){
+			for(var j=0;j<i-1;j++){
+				if(arr3[j].value>arr3[j+1].value){
+					temp2=arr3[j];
+					arr3[j]=arr3[j+1];
+					arr3[j+1]=temp2;
+				}
+			}
+		}
+		for(var i=0;i<arr3.length;i++){
+			document.write("id:"+arr3[i].id+",name:"+arr3[i].name+",value:"+arr3[i].value+"<br/>")
+		}
+		//5.对象转为数组
+		var scoreObject = {
+			"Tony": {
+				"Math": 95,
+				"English": 79,
+				"Music": 68
+			}, 
+			"Simon": {
+				"Math": 100,
+				"English": 95,
+				"Music": 98
+			}, 
+			"Annie": {
+				"Math": 54,
+				"English": 65,
+				"Music": 88
+			}
+		}
+		//ES6
+		var scoreArray=new Array;
+		
+		for (var index in scoreObject){
+			//document.write(index+":");
+			//document.write(scoreObject[index].English+"<br/>");
+			var arr=new Array;
+			arr.push(index,scoreObject[index].Math,scoreObject[index].English,scoreObject[index].Music);
+			scoreArray.push(arr);
+		}
+		document.write("["+scoreArray.join("],[")+"]"+"<br/>");
+		
+		</script>
+</body>
+</html>
