@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>JS 25-27-2</title>
+<script>
+	window.onload=function(){
+		var year=document.querySelector("#year-select");
+		var month=document.querySelector("#month-select");
+		var day=document.querySelector("#day-select");
+		var hour=document.querySelector("#hour-select");
+		var minute=document.querySelector("#minite-select");
+		var second=document.querySelector("#second-select");
+		var result=document.querySelector("#result-wrapper");
+		
+		for(var i=0;i<=59;i++){
+			if(i<=32){
+				var opt=document.createElement("option");
+				opt.value=2000+i;
+				opt.innerText=2000+i;
+				year.appendChild(opt);
+				
+			}
+			if(i<12){
+				var opt=document.createElement("option");
+				opt.value=1+i;
+				opt.innerText=1+i;
+				month.appendChild(opt);
+			}
+			if(i<31){
+				var opt=document.createElement("option");
+				opt.value=1+i;
+				opt.innerText=1+i;
+				day.appendChild(opt);
+			}
+			if(i<=23){
+				var opt=document.createElement("option");
+				opt.value=i;
+				opt.innerText=i;
+				hour.appendChild(opt);
+			}
+			var opt=document.createElement("option");
+			opt.value=i;
+			opt.innerText=i;
+			minute.appendChild(opt);
+			var opt1=document.createElement("option");
+			opt1.value=i;
+			opt1.innerText=i;
+			second.appendChild(opt1);
+		}
+		function bu0(value){
+			return (Array(2).join(0) + value).slice(-2);
+		}
+		var dayoptions=document.querySelector("#day-select").getElementsByTagName("option");
+		function show(){
+			switch(month.value){
+				case "2":
+					dayoptions[28].style.display="none";
+					dayoptions[29].style.display="none";
+					dayoptions[30].style.display="none";
+				break;
+				case "4":case "6":case "9":case "11":
+					dayoptions[28].style.display="block";
+					dayoptions[29].style.display="block";
+					dayoptions[30].style.display="none";
+				break;
+				case "1":case "3":case "5":case "7":case "8":case "10":case "12":
+					dayoptions[28].style.display="block";
+					dayoptions[29].style.display="block";
+					dayoptions[30].style.display="block";
+				break;
+			}
+			if((year.value%4==0&&year.value%100!=0)||year.value%400==0){
+				dayoptions[28].style.display="block";
+			}
+			var time=new Date(year.value,month.value-1,day.value,hour.value,minute.value,second.value);
+			var week=time.getDay();
+			var weeks=["日","一","二","三","四","五","六"];
+			var now=new Date();
+			var differ=Math.abs(now-time);
+			var days=Math.floor(differ/(24*3600*1000));
+			var leave1=differ%(24*3600*1000);
+			var hours=Math.floor(leave1/(3600*1000))
+			var leave2=leave1%(3600*1000);
+			var minutes=Math.floor(leave2/(60*1000));
+			var leave3=leave2%(60*1000);
+			var seconds=Math.round(leave3/1000);
+			//result.innerText=time;
+			var str="";
+			if(now-time>0){
+				str="已经过去";
+			}else{
+				str="还有";
+			}
+			result.innerText="现在距离 "+year.value+"年"+bu0(month.value)+"月"+bu0(day.value)+"日 星期"+weeks[week]+" "+bu0(hour.value)+":"+bu0(minute.value)+":"+bu0(second.value)+" "+str+days+"天"+hours+"小时"+minutes+"分"+seconds+"秒";
+		}
+		show();
+		var selects=document.getElementsByTagName("select");
+		for(var i=0;i<selects.length;i++){
+			selects[i].onchange=show;
+		}
+	}
+</script>
+</head>
+<body>
+	<select id="year-select">
+	</select>
+	
+	<select id="month-select">
+	</select>
+	
+	<select id="day-select">
+	</select>
+	
+	<select id="hour-select">
+	</select>
+	
+	<select id="minite-select">
+	</select>
+	
+	<select id="second-select">
+	</select>
+	
+	<p id="result-wrapper">现在距离 2001年1月1日星期X HH:MM:SS 还有 X 天 X 小时 X 分 X 秒</p>
+	
+	<!--使用上方的HTML结构（可以根据需要自行微调）为基础编写JavaScript代码
+	当变更任何一个select选择时，更新 result-wrapper 的内容
+	当所选时间早于现在时间时，文案为 现在距离 "所选时间" 已经过去 xxxx
+	当所选时间晚于现在时间时，文案为 现在距离 "所选时间" 还有 xxxx
+	注意当前时间经过所选时间时候的文案变化
+	注意选择不同月份的时候，日期的可选范围不一样，比如1月可以选31天，11月只有30天，注意闰年
+	同样，需要注意，通过优雅的函数封装，使得代码更加可读且可维护-->
+</body>
+</html>
