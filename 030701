@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>JS 28-30-1</title>
+<style>
+	#email-input{text-indent:4px;}
+	.email-sug{width:167px;border:1px solid #999999;margin:0;padding:0;display:none;padding-left:4px;}
+	ul li{list-style:none;}
+</style>
+
+</head>
+<body>
+	<div class="wrapper">
+    <input id="email-input" type="text">
+    <ul id="email-sug-wrapper" class="email-sug"></ul>
+	</div>
+	<script>
+	var postfixList = ['163.com', 'gmail.com', '126.com', 'qq.com', '263.net'];
+	var input=document.querySelector("#email-input");
+	var sug=document.querySelector("#email-sug-wrapper");
+	function email(){
+		var value=input.value.replace(/\s+/g,"");
+		if(!value.includes('@')){
+			if(value==''||value==undefined||value==null){
+				sug.style.display="none";
+			}else{
+				sug.style.display="block";
+				for(var i=0;i<postfixList.length;i++){
+					var li=document.getElementById(i);
+					if(!li){
+						var li=document.createElement("li");
+						li.id=i;
+						li.innerText=value+"@"+postfixList[i];
+						sug.appendChild(li);
+					}else{
+						li.innerText=value+"@"+postfixList[i];
+					}
+				}
+			}
+		}else{
+			var str=value.split('@');
+			var count=0;
+			for(var i=0;i<postfixList.length;i++){
+				if(postfixList[i].includes(str[1])){
+					document.getElementById(i).style.display="block";
+					count++;
+				}else{
+					document.getElementById(i).style.display="none";
+				}
+			}
+			if(count==0){
+				sug.style.display="none";
+			}else{
+				sug.style.display="block";
+			}
+		}
+	}
+
+	input.addEventListener('keyup',email,false);
+	var lis=document.getElementsByTagName("li");
+	for(var i=0;i<lis.length;i++){
+		lis[i].onclick=function(){
+			alert("1");
+		}
+	}
+	
+	</script>
+</body>
+</html>
