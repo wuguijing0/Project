@@ -36,20 +36,19 @@ let sourceData=[{
 	sale:[10,40,10,6,5,6,8,6,6,6,7,26]
 }]
 
+//table1
 var region=document.getElementById("region-select");
 var product=document.getElementById("product-select");
 var wrapper=document.getElementById("table-wrapper");
 
 newTable("dataTable1");
-newTable("dataTable2");
 
 region.onchange=function(){
-	insertData(showData1(region.value,product.value),document.getElementById("dataTable2"));
-	//insertData(showData2(region.value),document.getElementById("dataTable1"));
+	insertData(showData1(region.value,product.value),document.getElementById("dataTable1"));
 };
 
 product.onchange=function(){
-	insertData(showData1(region.value,product.value),document.getElementById("dataTable2"));
+	insertData(showData1(region.value,product.value),document.getElementById("dataTable1"));
 };
 
 function showData1(reg,pro){
@@ -58,16 +57,6 @@ function showData1(reg,pro){
 			return sourceData[i].sale;
 		}
 	}
-}
-
-function showData2(reg){
-	var dataList=new Array();
-	for(var i=0;i<sourceData.length;i++){
-		if(sourceData[i].region==reg){
-			dataList.push(sourceData[i].sale);
-		}
-	}
-	return dataList;
 }
 
 function newTable(tableId){
@@ -101,39 +90,57 @@ function newTable(tableId){
 
 function insertData(list,table){
 	var tbody=table.getElementsByTagName("tbody")[0];
-	/*if(list instanceof Array){
-		for(var i=1;i<list.length;i++){
-			var tr=document.createElement("tr");
-			for(var j=0;j<14;j++){
-				var td=document.createElement("td");
-				tr.appendChild(td);
-			}
-			tbody.appendChild(tr);
-		}
-		var trData=tbody.getElementsByTagName("tr");
-		for(var i=0;i<trData.length;i++){
-			var tdData=trData[i].getElementsByTagName("td");
-			for(var j=0;j<tdData.length;j++){
-				if(i==0){
-					tdData[i].innerText="";	
-				}else if(i==1){
-					tdData[i].innerText=region.value;	
-				}else{
-					tdData[i].innerText=list[i][j-2];
-				}	
-			}
-		}
-	}else{*/
-		var tdData=tbody.getElementsByTagName("td");
-		for(var i=0;i<tdData.length;i++){
-			if(i==0){
-				tdData[i].innerText=product.value;	
-			}else if(i==1){
-				tdData[i].innerText=region.value;	
-			}else{
-				tdData[i].innerText=list[i-2];
-			}	
-		}
-	//}
+	var tdData=tbody.getElementsByTagName("td");
+	for(var i=0;i<tdData.length;i++){
+		if(i==0){
+			tdData[i].innerText=product.value;	
+		}else if(i==1){
+			tdData[i].innerText=region.value;	
+		}else{
+			tdData[i].innerText=list[i-2];
+		}	
+	}
 }
+//table2
+var region_radio=document.getElementById("region-radio-wrapper");
+var product_radio=document.getElementById("product-radio-wrapper");
+var table_wrapper=document.getElementById("wrapper");
+
+function newCheck(ele,list){
+	for(var i=0;i<list.length+1;i++){
+		var label=document.createElement("label");
+		var input=document.createElement("input");
+		input.type="checkbox";
+		input.name=ele.title;
+		if(i==0){
+			var text=document.createTextNode("全选");
+			input.value="0";
+		}else{
+			var text=document.createTextNode(list[i-1].text);
+			input.value=list[i-1].value;
+		}
+		label.appendChild(input);
+		label.appendChild(text);
+		ele.appendChild(label);
+	}
+}
+
+newCheck(region_radio,[{value:1,text:"华东"},{value:2,text:"华北"},{value:3,text:"华南"}]);
+newCheck(product_radio,[{value:1,text:"手机"},{value:2,text:"笔记本"},{value:3,text:"智能音箱"}]);
+
+region_radio.children[0].checked=true;
+/*region_radio.onclick=function(){check(region_radio)};
+
+function check(ele){
+	var childs=ele.children;
+	if(childs[0].checked||childs[0].checked=="checked"){
+		for(var i=1;i<childs.length;i++){
+			childs[i].checked="checked";
+			childs[i].checked=true;
+		}
+	}
+}
+*/
+
+
 
