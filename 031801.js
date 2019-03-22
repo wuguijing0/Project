@@ -105,6 +105,7 @@ function insertData(list,table){
 var region_radio=document.getElementById("region-radio-wrapper");
 var product_radio=document.getElementById("product-radio-wrapper");
 var table_wrapper=document.getElementById("wrapper");
+var data_list=new Array();
 
 function newCheck(ele,list){
 	for(var i=0;i<list.length+1;i++){
@@ -123,24 +124,88 @@ function newCheck(ele,list){
 		label.appendChild(text);
 		ele.appendChild(label);
 	}
+	
+	for(var i=0;i<ele.children.length;i++){
+		ele.children[i].onclick=function(){
+			if(this.children[0].checked){
+				if(this.children[0].value==0){
+					for(var i=1;i<ele.children.length;i++){
+						ele.children[i].children[0].checked=true;
+					}
+				}else{
+					var count=0;
+					for(var i=1;i<ele.children.length;i++){
+						if(ele.children[i].children[0].checked){
+							count++;
+							if(count==3){
+								ele.children[0].children[0].checked=true;
+							}
+						}
+					}
+					data_list.push(this.innerText);
+				}
+			}else{
+				if(this.children[0].value==0){
+					for(var i=1;i<ele.children.length;i++){
+						ele.children[i].children[0].checked=false;
+					}
+				}else{
+					ele.children[0].children[0].checked=false;
+					var count=0;
+					for(var i=1;i<ele.children.length;i++){
+						if(ele.children[i].children[0].checked==false){
+							count++;
+							if(count==3){
+								this.children[0].checked=true;
+							}
+						}
+					}
+					data_list.splice(data_list.indexOf(this.innerText),1);
+				}
+			}
+			
+			queryData(data_list);
+		}
+	}
+}
+
+function insertData1(list,table){
+	var tbody=table.getElementsByTagName("tbody")[0];
+	var tr=document.createElement("tr");
+	for(var i=0;i<list.length;i++){
+		var tdData=document.createElement("td");
+		tdData.innerText=list[i];
+		tr.appendChild(tdData);
+	}
+	tbody.appendChild(tr);
+}
+
+function getData(reg,pro){
+	var dataList=new Array();
+	dataList.push(reg,pro);
+	for(var i=0;i<sourceData.length;i++){
+		if(sourceData[i].region==reg&&sourceData[i].product==pro){
+			for(var j=0;j<sourceData[i].sale.length;j++){
+				dataList.push(sourceData[i].sale[j]);	
+			}
+		}
+	}
+	var dataTable2=document.getElementById("dataTable2");
+	insertData1(dataList,dataTable2);
+}
+
+function queryData(list){
+	for(var i=0;i<list.length;i++){
+		if(sourceData.re)
+	}
 }
 
 newCheck(region_radio,[{value:1,text:"华东"},{value:2,text:"华北"},{value:3,text:"华南"}]);
 newCheck(product_radio,[{value:1,text:"手机"},{value:2,text:"笔记本"},{value:3,text:"智能音箱"}]);
-
-region_radio.children[0].checked=true;
-/*region_radio.onclick=function(){check(region_radio)};
-
-function check(ele){
-	var childs=ele.children;
-	if(childs[0].checked||childs[0].checked=="checked"){
-		for(var i=1;i<childs.length;i++){
-			childs[i].checked="checked";
-			childs[i].checked=true;
-		}
-	}
-}
-*/
+region_radio.children[1].children[0].checked=true;
+product_radio.children[1].children[0].checked=true;
+newTable("dataTable2");
+getData(region_radio.children[1].innerText,product_radio.children[1].innerText);
 
 
 
