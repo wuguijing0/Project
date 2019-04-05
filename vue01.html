@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="CSS/normalize.min.css" type="text/css">
+	<style>
+		.main{width: 300px;height: 600px;border: 1px solid #ddd;margin: 0 auto;}
+		.title{text-align: center;font-weight: bold;}
+		input{width: 96%;height: 30px;}
+		ul{padding: 0;}
+		li{list-style: none;height: 30px;line-height: 30px;text-indent: 10%}
+		li:hover{background: #eee;}
+		.delete{visibility: hidden;float: right;border: none;background: none;line-height: 30px;font-family: "微软雅黑";font-weight: bold;padding: 0;margin-right: 10%;}
+		.father:hover .delete{visibility: visible;}
+		.modify{font-family: "微软雅黑";font-size: 18px;width: 70%;background: none;border: none;height: 30px;padding: 0;}
+		.show span{font-size: 12px;line-height:18px;}
+		.qingdan{float: right;}
+		.check{width: 6px;height: 14px;border: 3px solid #ddd;display: inline-block;transform: rotate(45deg);border-top-color: transparent;border-left-color: transparent;border-radius: 5px;}
+		.green{border-right-color: green;border-bottom-color: green;}
+	</style>
+</head>
+<body>
+	<div class="main" id="app">
+		<p class="title">添加任务</p>
+		<input type="text" v-model="newList" @keyup.enter="addList" placeholder="请输入待办任务">
+		<div v-show="lists.length" class="show">
+			<span>{{lists.length}}个任务未完成</span>
+			<span class="qingdan">
+				<a>所有</a>
+				<a>未完成</a>
+				<a>已完成</a>
+			</span>
+		</div>
+		<p class="title">任务列表</p>
+		<p v-show="!lists.length">还没有添加任何任务</p>
+		<ul>
+			<li v-for="(list,index) in lists" class="father">
+				<span :class="classname[1]"></span>
+				<input type="text" class="modify" v-model="lists[index]" @blur="empty(index)">
+				<button class="delete" @click="del(index)">X</button>
+			</li>
+		</ul>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script>
+		var vm=new Vue({
+			el:"#app",
+			data:{
+				lists:["1","2"],
+				newList:"",
+				classname:["check","check green"]
+			},
+			methods:{
+				addList:function(){
+					if(this.newList===""){
+						return;
+					}
+					if (this.newList.length>20) {
+						alert("已超过最大长度");
+						return;
+					}
+					var newlist=this.newList;
+					this.lists.push(newlist);
+					this.newList="";
+				},
+				del:function(index){
+					this.lists.splice(index,1);
+				},
+				empty:function(index){
+					if(this.lists[index]==""){
+						this.lists.splice(index,1);
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
